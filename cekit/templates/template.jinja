@@ -41,7 +41,9 @@ rm{% for repo in repositories %} /etc/yum.repos.d/{{ repo.filename }}{% endfor %
     {% if pkg_manager in helper.SUPPORTED_PACKAGE_MANAGERS %}
 {{ pkg_manager }} {{ helper.package_manager_flags(pkg_manager, pkg_manager_flags) }} {{ helper.package_manager_install(pkg_manager) }} {%- for package in packages %} {{ package }}{% endfor %} \
     {% if pkg_manager == 'microdnf' %}
-            && {{ pkg_manager }} clean all
+            && {{ pkg_manager }} clean all \
+    {% endif %}
+            && {{ helper.package_manager_query(pkg_manager) }}{% for package in packages %} {{ package }}{% endfor %}
     {% endif %}
 {%- endmacro -%}
 
