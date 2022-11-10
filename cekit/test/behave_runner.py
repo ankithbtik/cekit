@@ -69,10 +69,8 @@ class BehaveTestRunner(object):
 
         try:
             with Chdir(os.path.join(self.target, "test")):
-                print("Hello")
-                print("behave args: {}".format(args))
-                logger.info("behave args: {}".format(args))
-                if behave_main(args) == 100:
+                logger.debug("behave args: {}".format(args))
+                if behave_main(args) != 0:
                     raise CekitError(
                         "Test execution failed, please consult output above"
                     )
