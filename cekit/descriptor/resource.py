@@ -205,6 +205,9 @@ class Resource(Descriptor):
             target = os.path.join(target, self.target)
 
         logger.info("Copying resource '{}'...".format(self.name))
+        logger.info("Copying resource from '{}'...".format(self.path))
+        logger.info(Descriptor.env.NEWRELIC_VERSION)
+
 
         if os.path.exists(target) and self.__verify(target):
             logger.debug("Local resource '{}' exists and is valid".format(self.name))
