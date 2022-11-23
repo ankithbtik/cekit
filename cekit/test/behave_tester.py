@@ -19,6 +19,7 @@ class BehaveTester(Command):
         super(BehaveTester, self).__init__("behave", Command.TYPE_TESTER)
 
         self.params = params
+        LOGGER.info("Params are '{}'.".format(self.params))
         self.collected = False
 
         self.test_collector = BehaveTestCollector(
@@ -71,4 +72,10 @@ class BehaveTester(Command):
         if not image:
             image = self.generator.get_tags()[0]
 
-        self.test_runner.run(image, test_tags, test_names=self.params.names)
+        self.test_runner.run(
+            image,
+            test_tags,
+            test_names=self.params.names,
+            include_regex=self.params.include_re,
+            exclude_regex=self.params.exclude_re
+        )

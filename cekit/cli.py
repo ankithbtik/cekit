@@ -305,6 +305,8 @@ def test(image, overrides):
     show_default=True,
 )
 @click.option("--wip", help="Run test scenarios tagged with @wip only.", is_flag=True)
+@click.option("--include-re", help="Run only those features which match this regex")
+@click.option("--exclude-re", help="Do not run those features which match this regex")
 @click.option(
     "--name",
     "names",
@@ -312,7 +314,7 @@ def test(image, overrides):
     multiple=True,
 )
 @click.pass_context
-def test_behave(ctx, steps_url, wip, names):
+def test_behave(ctx, steps_url, wip, names, include_re, exclude_re):
     """
     DESCRIPTION
 
