@@ -202,9 +202,13 @@ class DockerBuilder(Builder):
                 )
             )
 
-        params = {"version": "1.35"}
+        params = {"version": "1.24"}
         params.update(docker.utils.kwargs_from_env())
         params["timeout"] = timeout
+
+        LOGGER.info("***************************")
+        LOGGER.info(params)
+        LOGGER.info("***************************")
 
         try:
             client = APIClientClass(**params)
@@ -219,6 +223,11 @@ class DockerBuilder(Builder):
         if client and self._valid_docker_connection(client):
             LOGGER.debug("Docker client ready and working")
             LOGGER.debug(client.version())
+
+            LOGGER.info("***************************")
+            LOGGER.info(client.version())
+            LOGGER.info("***************************")
+
             return client
 
         LOGGER.error(
